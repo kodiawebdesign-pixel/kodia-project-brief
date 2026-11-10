@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kodia Web Design — استقبال مشروع جديد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07070b;
+    --bg-2: #0b0d14;
+    --card: #0f111b;
+    --card-2: #131622;
+    --border: #1e2230;
+    --border-2: #2a2f3f;
+    --primary: #00bcfe;
+    --primary-d: #0096cc;
+    --accent: #fcbb00;
+    --text: #e8edf5;
+    --muted: #8b95a8;
+    --ok: #10b981;
+    --danger: #ef4444;
+    --whatsapp: #25D366;
+    --radius: 14px;
+    --shadow: 0 10px 40px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.7;
+    min-height:100vh;
+  }
+  a{color:var(--primary); text-decoration:none; transition:.2s}
+  a:hover{text-decoration:underline; color:var(--primary-d)}
+
+  /* ===== HEADER ===== */
+  header#topbar{
+    position:sticky; top:0; z-index:100;
+    background:rgba(7,7,11,.95); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    padding:14px 24px;
+  }
+  .header-inner{
+    max-width:1100px; margin:0 auto;
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{display:flex; align-items:center; gap:14px}
+  .logo-container{
+    background:#fff; padding:6px 12px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+  }
+  .logo-img{ height:38px; width:auto; display:block; }
+  
+  .brand-text h1{font-size:16px; font-weight:800; letter-spacing:.3px; color:#fff}
+  .brand-text p{font-size:11px; color:var(--muted); margin-top:2px}
+
+  .header-info{
+    display:flex; flex-wrap:wrap; align-items:center; gap:16px; font-size:12px; color:var(--muted);
+  }
+  .header-info a{color:var(--text); font-weight:600; display:inline-flex; align-items:center; gap:4px}
+  .header-info a:hover{color:var(--primary); text-decoration:none}
+  
+  .site-link{
+    background:rgba(0,188,254,.1); color:var(--primary) !important;
+    padding:6px 12px; border-radius:6px; border:1px solid rgba(0,188,254,.3);
+  }
+  .site-link:hover{background:rgba(0,188,254,.2)}
+
+  .header-actions{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;
+  }
+  .header-actions button{
+    background:var(--card-2); color:var(--text); border:1px solid var(--border-2);
+    padding:8px 14px; border-radius:8px; cursor:pointer;
+    font-size:12px; font-family:inherit; transition:.2s;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .header-actions button:hover{background:var(--border-2); border-color:var(--primary)}
+  .header-actions button.primary{background:var(--primary); color:#07070b; border-color:var(--primary); font-weight:700}
+  .header-actions button.primary:hover{background:var(--primary-d)}
+  .header-actions button.danger{background:#2a0f0f; border-color:#7f1d1d; color:#fca5a5}
+  .header-actions button.danger:hover{background:#3f1414}
+  
+  /* زر الواتساب في الهيدر */
+  .header-actions button.wa-btn{
+    background:rgba(37, 211, 102, 0.15); color:var(--whatsapp); border-color:rgba(37, 211, 102, 0.4); font-weight:700;
+  }
+  .header-actions button.wa-btn:hover{background:rgba(37, 211, 102, 0.25);}
+
+  /* ===== PROGRESS ===== */
+  #progress-wrap{
+    max-width:1100px; margin:12px auto 0; padding:0 24px;
+  }
+  .progress-bar{
+    height:6px; background:var(--border); border-radius:3px; overflow:hidden; margin-top:6px;
+  }
+  .progress-bar > div{
+    height:100%; width:0%; background:linear-gradient(90deg, var(--primary), var(--accent));
+    transition:width .3s ease; border-radius:3px;
+  }
+  #progress-text{font-size:12px; color:var(--muted)}
+
+  /* ===== MAIN ===== */
+  main{max-width:1100px; margin:24px auto 80px; padding:0 24px}
+
+  .section{
+    background:var(--card); border:1px solid var(--border);
+    border-radius:var(--radius); margin-bottom:16px; overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .section > summary{
+    cursor:pointer; padding:16px 20px; font-weight:700; font-size:15px;
+    background:var(--card-2); border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center;
+    user-select:none; list-style:none;
+  }
+  .section > summary::-webkit-details-marker{display:none}
+  .section > summary::after{
+    content:"▾"; color:var(--primary); font-size:18px; transition:.2s;
+  }
+  .section[open] > summary::after{transform:rotate(180deg)}
+  .section[open] > summary{background:rgba(0,188,254,.06); color:var(--primary)}
+  .section .body{padding:20px}
+
+  .field{margin-bottom:18px}
+  .field label{
+    display:block; font-weight:600; font-size:13px; margin-bottom:6px;
+    color:var(--text);
+  }
+  .field .hint{font-size:11px; color:var(--muted); margin-bottom:6px; line-height:1.5}
+  .field input[type="text"], .field input[type="date"],
+  .field select, .field textarea{
+    width:100%; padding:11px 14px;
+    background:var(--bg-2); color:var(--text);
+    border:1px solid var(--border-2); border-radius:9px;
+    font-size:13px; font-family:inherit;
+    transition:.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(0,188,254,.15);
+    background:var(--card-2);
+  }
+  .field textarea{min-height:80px; resize:vertical}
+  .field.filled label::after{content:" ✓"; color:var(--ok); font-weight:bold}
+
+  /* ===== ROWS TABLES ===== */
+  table.rows{
+    width:100%; border-collapse:collapse; font-size:12px; margin-bottom:10px;
+    background:var(--bg-2); border-radius:8px; overflow:hidden;
+  }
+  table.rows th, table.rows td{
+    border:1px solid var(--border); padding:8px; text-align:right;
+  }
+  table.rows th{
+    background:var(--card-2); font-weight:600; font-size:11px; color:var(--muted);
+  }
+  table.rows input, table.rows select{
+    width:100%; padding:7px 9px; border:1px solid var(--border-2);
+    border-radius:6px; font-family:inherit; font-size:12px;
+    background:var(--card); color:var(--text);
+  }
+  .btn-mini{
+    background:var(--card-2); color:var(--primary);
+    border:1px solid var(--border-2); padding:7px 14px;
+    border-radius:7px; cursor:pointer; font-size:12px; font-family:inherit;
+    transition:.2s;
+  }
+  .btn-mini:hover{background:var(--border-2); border-color:var(--primary)}
+  .btn-mini.del{background:#2a0f0f; color:#fca5a5; border-color:#7f1d1d}
+  .btn-mini.del:hover{background:#3f1414}
+
+  /* ===== FOOTER ===== */
+  footer{
+    max-width:1100px; margin:0 auto; padding:24px;
+    border-top:1px solid var(--border);
+    color:var(--muted); font-size:12px; text-align:center;
+  }
+  footer .footer-brand{color:var(--accent); font-weight:700}
+  footer .footer-contact{margin-top:12px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; align-items:center}
+  footer .footer-contact a{color:var(--text); font-weight:600}
+  footer .footer-contact a:hover{color:var(--primary)}
+
+  /* ===== FLOATING WHATSAPP BUTTON ===== */
+  .floating-wa{
+    position:fixed; bottom:30px; left:30px; z-index:999;
+    background:var(--whatsapp); color:#fff;
+    width:60px; height:60px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 15px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease; text-decoration:none;
+  }
+  .floating-wa:hover{
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 6px 20px rgba(37, 211, 102, 0.6);
+    color:#fff; text-decoration:none;
+  }
+  .floating-wa svg{ width:34px; height:34px; fill:currentColor; }
+
+  /* ===== PRINT ===== */
+  @media print{
+    header#topbar{position:static; background:#fff; color:#000; border-bottom:1px solid #ccc}
+    .header-actions, #progress-wrap, .btn-mini, .rows-actions, footer .footer-contact, .floating-wa{display:none!important}
+    body{background:#fff; color:#000}
+    .section{border:1px solid #ddd; box-shadow:none}
+    .section > summary{background:#f5f5f5; color:#000}
+    .field input, .field textarea, .field select{background:#fff; color:#000; border:1px solid #ccc}
+    .logo-container{border:1px solid #ccc;}
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:768px){
+    header#topbar{padding:12px 16px}
+    .header-inner{flex-direction:column; align-items:flex-start}
+    .header-info{width:100%; justify-content:space-between;}
+    main{padding:0 14px}
+    .section .body{padding:16px}
+    table.rows{font-size:11px}
+    .logo-img{height:30px;}
+    .floating-wa{bottom:20px; left:20px; width:50px; height:50px;}
+    .floating-wa svg{width:28px; height:28px;}
+  }
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo-container">
+        <img src="logo.png" alt="Kodia Web Design Logo" class="logo-img">
+      </div>
+      <div class="brand-text">
+        <h1>Kodia Web Design</h1>
+        <p>نموذج استقبال مشروع جديد</p>
+      </div>
+    </div>
+
+    <div class="header-info">
+      <a href="tel:+201207005495">📞 01207005495</a>
+      <a href="mailto:kodia.web.design@gmail.com">✉️ kodia.web.design@gmail.com</a>
+      <a href="https://kodia-web-design-eg-com.vercel.app/" target="_blank" class="site-link">🌐 زيارة الموقع</a>
+    </div>
+  </div>
+
+  <div id="progress-wrap">
+    <div id="progress-text">0 / 0 حقل معبأ</div>
+    <div class="progress-bar"><div id="progress-fill"></div></div>
+  </div>
+
+  <div class="header-actions">
+    <!-- زر إرسال عبر واتساب -->
+    <button class="wa-btn" onclick="sendToWhatsApp()">📱 إرسال عبر واتساب</button>
+    <button class="primary" onclick="exportMD()">⬇ تصدير Markdown</button>
+    <button onclick="exportJSON()">💾 حفظ JSON</button>
+    <button onclick="document.getElementById('fileInput').click()">📂 استيراد JSON</button>
+    <button onclick="loadExample()">✨ مثال تجريبي</button>
+    <button onclick="window.print()">🖨 طباعة / PDF</button>
+    <button class="danger" onclick="clearAll()">🗑 مسح</button>
+  </div>
+  <input type="file" id="fileInput" accept=".json" hidden onchange="importJSON(event)">
+</header>
+
+<main id="form"></main>
+
+<footer>
+  <div><span class="footer-brand">Kodia Web Design</span> — جميع الحقوق محفوظة</div>
+  <div class="footer-contact">
+    <a href="https://kodia-web-design-eg-com.vercel.app/" target="_blank">🌐 kodia-web-design-eg-com.vercel.app</a>
+    <a href="tel:+201207005495">📞 01207005495</a>
+    <a href="mailto:kodia.web.design@gmail.com">✉️ kodia.web.design@gmail.com</a>
+  </div>
+  <div style="margin-top:12px; font-size:11px; opacity:.7">
+    البيانات تُحفظ تلقائيًا في متصفحك فقط — بعد الانتهاء اضغط «تصدير Markdown» وأرسل الملف.
+  </div>
+</footer>
+
+<!-- الزر العائم للواتساب -->
+<a href="https://wa.me/201207005495?text=مرحباً%20Kodia%20Web%20Design،%20لدي%20استفسار%20بخصوص%20مشروع%20جديد." target="_blank" class="floating-wa" title="تواصل معنا عبر واتساب">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+/* ================= SCHEMA (نفس الأقسام الكاملة) ================= */
+const SCHEMA = [
+  { title:"1. البيانات الأساسية للمشروع", fields:[
+    { id:"project_name", label:"اسم المشروع / العميل", type:"text" },
+    { id:"project_type", label:"نوع المشروع", type:"select",
+      options:["موقع تعريفي","متجر إلكتروني","صفحة هبوط","تطبيق موبايل","لوحة تحكم","منصة SaaS","غير ذلك"] },
+    { id:"description", label:"وصف الفكرة في سطرين", type:"textarea" },
+    { id:"problem", label:"المشكلة التي يحلها المشروع", type:"textarea" },
+    { id:"audience", label:"الفئة المستهدفة", type:"text" },
+    { id:"goal", label:"الهدف الأساسي", type:"select",
+      options:["زيادة المبيعات","تقديم خدمة","عرض معلومات","إدارة عمليات","بناء مجتمع","غير ذلك"] },
+    { id:"markets", label:"الدول أو الأسواق المستهدفة", type:"text" },
+    { id:"competitors", label:"أمثلة لمشاريع مشابهة (روابط أو أسماء)", type:"textarea" },
+  ]},
+
+  { title:"2. نطاق المشروع والأولويات", fields:[
+    { id:"version", label:"النسخة المطلوبة", type:"select",
+      options:["نسخة أولية MVP","نسخة متكاملة","تطوير مشروع قائم"] },
+    { id:"top5", label:"أهم 5 وظائف عند الإطلاق", type:"textarea",
+      hint:"اكتب كل وظيفة في سطر منفصل" },
+    { id:"deferred", label:"وظائف يمكن تأجيلها", type:"textarea" },
+    { id:"excluded", label:"ما لا يدخل ضمن المشروع", type:"textarea" },
+    { id:"success_criteria", label:"معيار اعتبار المشروع ناجحًا", type:"textarea" },
+  ]},
+
+  { title:"3. التقنيات والبنية البرمجية", fields:[
+    { id:"framework", label:"Framework", type:"select",
+      options:["Next.js","React","غير ذلك","اقترح أنت"] },
+    { id:"language", label:"لغة البرمجة", type:"select",
+      options:["TypeScript","JavaScript","اقترح أنت"] },
+    { id:"design_ref", label:"التصميم / المرجع", type:"text",
+      hint:"رابط Figma أو موقع مرجعي أو 'تصميم من الصفر'" },
+    { id:"db", label:"قاعدة البيانات", type:"select",
+      options:["مطلوبة","غير مطلوبة","اقترح أنت"] },
+    { id:"auth", label:"تسجيل دخول المستخدمين", type:"select",
+      options:["مطلوب","غير مطلوب","غير محسوم"] },
+    { id:"admin_panel", label:"لوحة تحكم Admin", type:"select",
+      options:["مطلوبة","غير مطلوبة","غير محسومة"] },
+    { id:"payment", label:"الدفع الإلكتروني", type:"select",
+      options:["مطلوب - Paymob","مطلوب - Stripe","مطلوب - بوابة أخرى","غير مطلوب"] },
+    { id:"api_needed", label:"واجهات API", type:"select",
+      options:["مطلوبة","غير مطلوبة","غير معروف"] },
+    { id:"external_services", label:"خدمات خارجية", type:"text",
+      hint:"خرائط / ذكاء اصطناعي / بريد / رسائل / WhatsApp / غير ذلك" },
+  ]},
+
+  { title:"4. الصفحات والشاشات المطلوبة", fields:[
+    { id:"public_pages", label:"صفحات الموقع العامة", type:"textarea" },
+    { id:"user_pages", label:"صفحات المستخدم", type:"textarea" },
+    { id:"admin_pages", label:"صفحات الإدارة", type:"textarea" },
+    { id:"mobile_screens", label:"شاشات تطبيق الموبايل (إن وجدت)", type:"textarea" },
+    { id:"legal_pages", label:"الصفحات القانونية", type:"textarea" },
+    { id:"page_notes", label:"ملاحظات على الصفحات", type:"textarea" },
+  ]},
+
+  { title:"5. الوظائف وسيناريوهات الاستخدام", fields:[
+    { id:"visitor_can", label:"ماذا يستطيع الزائر فعله؟", type:"textarea" },
+    { id:"user_can", label:"ماذا يستطيع المستخدم المسجل فعله؟", type:"textarea" },
+    { id:"admin_can", label:"ماذا يستطيع المدير فعله؟", type:"textarea" },
+    { id:"user_journey", label:"رحلة المستخدم الأساسية", type:"textarea",
+      hint:"مثال: دخول ← اختيار خدمة ← إرسال طلب ← تأكيد" },
+    { id:"business_rules", label:"عمليات أو قواعد خاصة", type:"textarea" },
+    { id:"reports", label:"التقارير المطلوبة", type:"textarea" },
+  ]},
+
+  { title:"6. المستخدمون والصلاحيات", fields:[
+    { id:"account_types", label:"أنواع الحسابات", type:"text" },
+    { id:"registration", label:"طريقة التسجيل", type:"text",
+      hint:"بريد / هاتف / Google / Apple / دعوات" },
+    { id:"verify_account", label:"هل يلزم تأكيد الحساب؟", type:"select",
+      options:["بريد إلكتروني","SMS","لا"] },
+    { id:"paid_roles", label:"هل توجد اشتراكات أو أدوار مدفوعة؟", type:"select",
+      options:["نعم","لا","غير محسوم"] },
+  ]},
+
+  { title:"7. الهوية البصرية والمحتوى", fields:[
+    { id:"logo", label:"الشعار Logo", type:"select",
+      options:["متوفر","غير متوفر","سأوفره لاحقًا"] },
+    { id:"content", label:"النصوص والمحتوى", type:"select",
+      options:["متوفرة","سأوفرها لاحقًا","اكتب نصوصًا مؤقتة"] },
+    { id:"media", label:"الصور والوسائط", type:"select",
+      options:["متوفرة","صور مجانية","صور مولدة","اقترح أنت"] },
+    { id:"colors", label:"ألوان الهوية", type:"text",
+      hint:"أكواد أو وصف، أو 'اقترح أنت'" },
+    { id:"fonts", label:"الخطوط", type:"text" },
+    { id:"design_style", label:"أسلوب التصميم", type:"select",
+      options:["رسمي","عصري","بسيط","فاخر","تقني","شبابي","غير ذلك"] },
+    { id:"refs", label:"روابط أو ملفات مرجعية", type:"textarea" },
+  ]},
+
+  { title:"8. اللغات وإمكانية الوصول وتجربة الاستخدام", fields:[
+    { id:"ui_language", label:"لغة الواجهة", type:"select",
+      options:["عربي","إنجليزي","عربي وإنجليزي","لغات أخرى"] },
+    { id:"direction", label:"اتجاه الواجهة", type:"select",
+      options:["RTL","LTR","يتغير حسب اللغة"] },
+    { id:"devices", label:"التوافق مع الأجهزة", type:"text",
+      hint:"موبايل / تابلت / كمبيوتر — يفضل دعم الجميع" },
+    { id:"a11y", label:"متطلبات الوصول", type:"textarea" },
+    { id:"ux_prefs", label:"تفضيلات تجربة المستخدم", type:"textarea" },
+  ]},
+
+  { title:"9. التكاملات والإشعارات", fields:[
+    { id:"payment_gateway", label:"بوابة الدفع", type:"select",
+      options:["Paymob","Stripe","Fawry","أخرى","لا يوجد"] },
+    { id:"email_provider", label:"البريد الإلكتروني", type:"text",
+      hint:"مزود مثل Resend / SendGrid / أو 'لا يوجد'" },
+    { id:"sms", label:"الرسائل النصية SMS", type:"text" },
+    { id:"whatsapp", label:"WhatsApp", type:"select",
+      options:["إشعارات","خدمة عملاء","غير مطلوب"] },
+    { id:"maps", label:"خدمات الخرائط", type:"select",
+      options:["Google Maps","غيرها","غير مطلوبة"] },
+    { id:"analytics", label:"تحليلات الزيارات", type:"select",
+      options:["Google Analytics","أدوات أخرى","غير مطلوبة"] },
+    { id:"other_integrations", label:"تكاملات أخرى", type:"textarea" },
+  ]},
+
+  { title:"10. البيانات وقاعدة البيانات", fields:[
+    { id:"data_stored", label:"ما البيانات التي سيتم تخزينها؟", type:"textarea" },
+    { id:"data_volume", label:"حجم البيانات المتوقع", type:"select",
+      options:["صغير","متوسط","كبير","غير معروف"] },
+    { id:"existing_data", label:"هل توجد بيانات حالية؟", type:"text",
+      hint:"نعم/لا — وأين توجد: Excel / نظام قديم / قاعدة بيانات" },
+    { id:"import_data", label:"هل نحتاج استيراد بيانات؟", type:"text" },
+    { id:"uploads", label:"الملفات المرفوعة", type:"text",
+      hint:"صور / PDF / مستندات / فيديو" },
+    { id:"retention", label:"الاحتفاظ بالبيانات وحذفها", type:"textarea" },
+  ]},
+
+  { title:"11. الأمان والخصوصية", fields:[
+    { id:"sensitivity", label:"حساسية البيانات", type:"select",
+      options:["عادية","شخصية","مالية","بيانات عملاء","غير ذلك"] },
+    { id:"account_protection", label:"متطلبات حماية الحسابات", type:"text" },
+    { id:"admin_access", label:"من يمكنه الوصول إلى لوحة الإدارة؟", type:"text" },
+    { id:"legal_pages_status", label:"سياسة الخصوصية والشروط", type:"select",
+      options:["متوفرة","تحتاج كتابة","غير مطلوبة"] },
+    { id:"backup", label:"النسخ الاحتياطي", type:"select",
+      options:["مطلوب","غير مطلوب","اقترح أنت"] },
+    { id:"regulations", label:"متطلبات قانونية أو تنظيمية", type:"textarea" },
+  ]},
+
+  { title:"12. SEO والأداء والاختبار", fields:[
+    { id:"seo_level", label:"SEO", type:"select",
+      options:["أساسي","متقدم","غير مطلوب","اقترح أنت"] },
+    { id:"keywords", label:"الكلمات المفتاحية", type:"text" },
+    { id:"speed", label:"سرعة الموقع", type:"select",
+      options:["قياسية","أولوية عالية"] },
+    { id:"link_sharing", label:"مشاركة الروابط", type:"text",
+      hint:"صور وعناوين عند المشاركة على الشبكات الاجتماعية" },
+    { id:"tests_needed", label:"اختبارات مطلوبة", type:"text" },
+    { id:"browsers", label:"المتصفحات المستهدفة", type:"text",
+      hint:"Chrome / Safari / Firefox / Edge" },
+  ]},
+
+  { title:"13. الاستضافة والنشر والتكلفة", fields:[
+    { id:"code_host", label:"مكان حفظ الكود", type:"text", hint:"GitHub" },
+    { id:"hosting", label:"الاستضافة", type:"select",
+      options:["Vercel مجاني","Vercel مدفوع","اقترح أنت"] },
+    { id:"domain", label:"النطاق Domain", type:"text",
+      hint:"متوفر / غير متوفر — الاسم إن وجد" },
+    { id:"db_hosting", label:"قاعدة البيانات والاستضافة", type:"text" },
+    { id:"monthly_budget", label:"ميزانية الخدمات الشهرية", type:"text" },
+    { id:"deadline", label:"موعد التسليم", type:"text" },
+    { id:"cost_constraints", label:"هل توجد قيود على التكلفة؟", type:"textarea" },
+  ]},
+
+  { title:"14. الصيانة والتشغيل بعد الإطلاق", fields:[
+    { id:"maintainer", label:"من سيدير الموقع بعد التسليم؟", type:"text" },
+    { id:"updates_freq", label:"التحديثات المستقبلية", type:"select",
+      options:["حسب الحاجة","شهرية","مستمرة"] },
+    { id:"support", label:"الدعم والصيانة", type:"select",
+      options:["مطلوب","غير مطلوب","غير محسوم"] },
+    { id:"monitoring", label:"مراقبة الأعطال", type:"select",
+      options:["مطلوبة","غير مطلوبة","اقترح أنت"] },
+    { id:"future_roadmap", label:"خطة إضافة خصائص مستقبلية", type:"textarea" },
+  ]},
+
+  { title:"15. المخاطر والاعتماديات والملاحظات", fields:[
+    { id:"delay_factors", label:"أمور قد تؤخر التنفيذ", type:"textarea" },
+    { id:"required_accounts", label:"حسابات أو مفاتيح مطلوبة", type:"textarea",
+      hint:"لا ترسل كلمات مرور أو مفاتيح سرية داخل هذا النموذج" },
+    { id:"decision_maker", label:"جهة اتخاذ القرار", type:"text" },
+    { id:"notes", label:"ملاحظات إضافية", type:"textarea" },
+  ]},
+
+  { title:"16. مواصفات الوظائف (Feature Specs)", fields:[
+    { id:"feature_specs", label:"جدول الوظائف", type:"rows",
+      columns:[
+        { id:"feature", label:"الوظيفة", type:"text" },
+        { id:"story", label:"User Story", type:"text" },
+        { id:"acceptance", label:"معيار القبول", type:"text" },
+        { id:"priority", label:"الأولوية", type:"select", options:["Must","Should","Could","Won't"] },
+        { id:"in_mvp", label:"داخل MVP؟", type:"select", options:["نعم","لا"] },
+      ]},
+  ]},
+
+  { title:"17. مصفوفة الصلاحيات", fields:[
+    { id:"permissions", label:"المورد × الإجراء × الدور", type:"rows",
+      hint:"✔ = مسموح، ✖ = ممنوع، △ = بشروط",
+      columns:[
+        { id:"resource", label:"المورد", type:"text" },
+        { id:"action", label:"الإجراء", type:"text" },
+        { id:"visitor", label:"زائر", type:"select", options:["✔","✖","△"] },
+        { id:"user", label:"مستخدم", type:"select", options:["✔","✖","△"] },
+        { id:"moderator", label:"مشرف", type:"select", options:["✔","✖","△"] },
+        { id:"admin", label:"مدير", type:"select", options:["✔","✖","△"] },
+      ]},
+  ]},
+
+  { title:"18. قاموس البيانات وقاعدة البيانات", fields:[
+    { id:"entities", label:"الكيانات الأساسية", type:"rows",
+      columns:[
+        { id:"entity", label:"الكيان", type:"text" },
+        { id:"description", label:"الوصف", type:"text" },
+        { id:"fields", label:"الحقول الأساسية", type:"text" },
+        { id:"relations", label:"العلاقات", type:"text" },
+      ]},
+    { id:"db_notes", label:"ملاحظات (مفاتيح، فهارس، حالات الطلب، Soft Delete)", type:"textarea" },
+  ]},
+
+  { title:"19. مواصفات واجهات API", fields:[
+    { id:"api_endpoints", label:"قائمة Endpoints", type:"rows",
+      columns:[
+        { id:"endpoint", label:"Endpoint", type:"text" },
+        { id:"method", label:"Method", type:"select", options:["GET","POST","PUT","PATCH","DELETE"] },
+        { id:"desc", label:"الوصف", type:"text" },
+        { id:"auth", label:"المصادقة", type:"select", options:["نعم","لا"] },
+      ]},
+    { id:"api_notes", label:"ملاحظات (Rate Limit / Webhooks / الأخطاء)", type:"textarea" },
+  ]},
+
+  { title:"20. البيئات وسير عمل Git و CI/CD", fields:[
+    { id:"environments", label:"البيئات", type:"text", hint:"Development / Staging / Production" },
+    { id:"branching", label:"Git Branching", type:"text" },
+    { id:"pr_required", label:"Pull Requests", type:"select",
+      options:["مطلوبة","غير مطلوبة"] },
+    { id:"ci", label:"CI", type:"text", hint:"Lint + Test + Build قبل الدمج" },
+    { id:"vercel_preview", label:"Vercel Preview", type:"select",
+      options:["مفعّل","غير مفعّل"] },
+    { id:"env_management", label:"إدارة متغيرات البيئة", type:"text" },
+    { id:"rollback", label:"خطة Rollback", type:"text" },
+  ]},
+
+  { title:"21. خطة الأمان والنسخ الاحتياطي", fields:[
+    { id:"login_method", label:"طريقة تسجيل الدخول", type:"text" },
+    { id:"password_policy", label:"سياسة كلمات المرور", type:"text" },
+    { id:"rate_limit", label:"Rate Limiting", type:"text" },
+    { id:"csrf_xss_sql", label:"حماية CSRF / XSS / SQL Injection", type:"textarea" },
+    { id:"file_validation", label:"التحقق من الملفات", type:"text" },
+    { id:"audit_log", label:"Audit Log", type:"select",
+      options:["مطلوب","غير مطلوب"] },
+    { id:"backup_freq", label:"تكرار النسخ الاحتياطي", type:"text" },
+    { id:"restore_test", label:"اختبار الاستعادة", type:"text" },
+    { id:"secrets_mgmt", label:"إدارة الأسرار", type:"text",
+      hint:"Vercel Environment Variables — ممنوع في GitHub" },
+  ]},
+
+  { title:"22. الاختبار وتعريف «تم»", fields:[
+    { id:"test_types", label:"أنواع الاختبار المطلوبة", type:"textarea",
+      hint:"Unit / Integration / E2E / موبايل / متصفحات / Accessibility / Performance / Security" },
+    { id:"definition_of_done", label:"تعريف «تم» لكل مهمة", type:"textarea" },
+  ]},
+
+  { title:"23. نظام التصميم والمحتوى", fields:[
+    { id:"ds_colors", label:"الألوان", type:"text" },
+    { id:"ds_fonts", label:"الخطوط", type:"text" },
+    { id:"ds_breakpoints", label:"Breakpoints", type:"text" },
+    { id:"ds_components", label:"المكونات الأساسية", type:"text" },
+    { id:"content_owner", label:"مالك المحتوى", type:"text" },
+    { id:"content_deadline", label:"موعد تسليم المحتوى", type:"text" },
+    { id:"image_sizes", label:"أحجام الصور", type:"text" },
+    { id:"alt_text", label:"Alt Text", type:"select",
+      options:["مطلوب","غير مطلوب"] },
+    { id:"legal_writer", label:"من يكتب الصفحات القانونية؟", type:"text" },
+  ]},
+
+  { title:"24. التشغيل والمراقبة بعد الإطلاق", fields:[
+    { id:"monitoring_tools", label:"Monitoring", type:"text" },
+    { id:"error_tracking", label:"Error Tracking", type:"text" },
+    { id:"logs", label:"Logs", type:"text" },
+    { id:"uptime", label:"Uptime المستهدف", type:"text" },
+    { id:"maintenance_freq", label:"تكرار الصيانة", type:"text" },
+    { id:"support_owner", label:"من المسؤول عن الدعم؟", type:"text" },
+    { id:"backup_review", label:"مراجعة النسخ الاحتياطي", type:"text" },
+  ]},
+
+  { title:"25. إدارة التغيير والقرارات", fields:[
+    { id:"change_request", label:"نموذج Change Request", type:"select",
+      options:["مطلوب","غير مطلوب"] },
+    { id:"decision_log", label:"Decision Log", type:"text", hint:"ملف DECISIONS.md" },
+    { id:"risk_register", label:"Risk Register", type:"text", hint:"ملف RISKS.md" },
+    { id:"signoffs", label:"اعتماد المراحل", type:"text" },
+    { id:"mvp_freeze", label:"تجميد نطاق MVP", type:"text" },
+    { id:"assumptions", label:"الافتراضات", type:"textarea" },
+  ]},
+
+  { title:"26. تفاصيل الدفع والاشتراكات (إن وجدت)", fields:[
+    { id:"pay_gateway", label:"بوابة الدفع", type:"text" },
+    { id:"pay_flow", label:"رحلة الدفع", type:"textarea" },
+    { id:"pay_webhooks", label:"Webhooks", type:"text" },
+    { id:"pay_idempotency", label:"Idempotency", type:"select",
+      options:["مطلوب","غير مطلوب"] },
+    { id:"pay_refund", label:"سياسة الاسترجاع", type:"text" },
+    { id:"pay_invoices", label:"الفواتير", type:"select",
+      options:["مطلوبة","غير مطلوبة"] },
+    { id:"pay_taxes", label:"الضرائب", type:"text" },
+    { id:"pay_failures", label:"حالات الفشل", type:"textarea" },
+  ]},
+
+  { title:"27. اللغة والمنطقة الزمنية والعملة", fields:[
+    { id:"currency", label:"العملة", type:"text" },
+    { id:"timezone", label:"Timezone", type:"text", hint:"Africa/Cairo / UTC / غير ذلك" },
+    { id:"date_format", label:"تنسيق التواريخ", type:"text" },
+    { id:"translation", label:"طريقة الترجمة", type:"text", hint:"ملفات i18n / يدوية" },
+    { id:"rtl_support", label:"دعم RTL", type:"select",
+      options:["مدعوم","غير مدعوم"] },
+  ]},
+
+  { title:"28. اعتماد نطاق المشروع", fields:[
+    { id:"requirements_reviewed", label:"هل تمت مراجعة المتطلبات؟", type:"select",
+      options:["نعم","لا","تحتاج مراجعة"] },
+    { id:"pages_approved", label:"هل تم اعتماد الصفحات والوظائف؟", type:"select",
+      options:["نعم","لا","تحتاج مراجعة"] },
+    { id:"tech_approved", label:"هل تم اعتماد التقنيات والتكلفة؟", type:"select",
+      options:["نعم","لا","تحتاج مراجعة"] },
+    { id:"final_decisions", label:"ملاحظات أو قرارات نهائية", type:"textarea" },
+  ]},
+];
+
+/* ================= STATE ================= */
+const STORAGE_KEY = 'kodia_mpb_v1';
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+/* ================= RENDER ================= */
+function render() {
+  const form = document.getElementById('form');
+  form.innerHTML = '';
+  SCHEMA.forEach((sec, si) => {
+    const details = document.createElement('details');
+    details.className = 'section';
+    details.open = si < 2;
+    const summary = document.createElement('summary');
+    summary.textContent = sec.title;
+    details.appendChild(summary);
+    const body = document.createElement('div');
+    body.className = 'body';
+    sec.fields.forEach(f => body.appendChild(renderField(f)));
+    details.appendChild(body);
+    form.appendChild(details);
+  });
+  updateProgress();
+}
+
+function renderField(f) {
+  const wrap = document.createElement('div');
+  wrap.className = 'field';
+  wrap.dataset.fieldId = f.id;
+
+  const label = document.createElement('label');
+  label.textContent = f.label;
+  wrap.appendChild(label);
+
+  if (f.hint) {
+    const hint = document.createElement('div');
+    hint.className = 'hint';
+    hint.textContent = f.hint;
+    wrap.appendChild(hint);
+  }
+
+  const val = state[f.id];
+
+  if (f.type === 'text' || f.type === 'date') {
+    const inp = document.createElement('input');
+    inp.type = f.type;
+    inp.value = val || '';
+    inp.addEventListener('input', () => { state[f.id] = inp.value; save(); markFilled(wrap, inp.value); });
+    wrap.appendChild(inp);
+  } else if (f.type === 'textarea') {
+    const ta = document.createElement('textarea');
+    ta.value = val || '';
+    ta.addEventListener('input', () => { state[f.id] = ta.value; save(); markFilled(wrap, ta.value); });
+    wrap.appendChild(ta);
+  } else if (f.type === 'select') {
+    const sel = document.createElement('select');
+    const empty = document.createElement('option');
+    empty.value = ''; empty.textContent = '— اختر —';
+    sel.appendChild(empty);
+    f.options.forEach(o => {
+      const op = document.createElement('option');
+      op.value = o; op.textContent = o;
+      if (o === val) op.selected = true;
+      sel.appendChild(op);
+    });
+    sel.addEventListener('change', () => { state[f.id] = sel.value; save(); markFilled(wrap, sel.value); });
+    wrap.appendChild(sel);
+  } else if (f.type === 'rows') {
+    wrap.appendChild(renderRows(f));
+  }
+
+  if (val && String(val).trim() !== '') wrap.classList.add('filled');
+  return wrap;
+}
+
+function markFilled(wrap, v) {
+  wrap.classList.toggle('filled', v && v.trim && v.trim() !== '');
+}
+
+function renderRows(f) {
+  const container = document.createElement('div');
+  if (!Array.isArray(state[f.id])) state[f.id] = [];
+
+  const table = document.createElement('table');
+  table.className = 'rows';
+  const thead = document.createElement('thead');
+  const trh = document.createElement('tr');
+  f.columns.forEach(c => { const th = document.createElement('th'); th.textContent = c.label; trh.appendChild(th); });
+  const thAct = document.createElement('th'); thAct.textContent = ''; trh.appendChild(thAct);
+  thead.appendChild(trh); table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+
+  function renderRowsBody() {
+    tbody.innerHTML = '';
+    state[f.id].forEach((row, i) => {
+      const tr = document.createElement('tr');
+      f.columns.forEach(c => {
+        const td = document.createElement('td');
+        if (c.type === 'select') {
+          const sel = document.createElement('select');
+          const empty = document.createElement('option'); empty.value=''; empty.textContent='—';
+          sel.appendChild(empty);
+          c.options.forEach(o => {
+            const op = document.createElement('option'); op.value=o; op.textContent=o;
+            if (row[c.id] === o) op.selected = true;
+            sel.appendChild(op);
+          });
+          sel.addEventListener('change', () => { row[c.id] = sel.value; save(); });
+          td.appendChild(sel);
+        } else {
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.value = row[c.id] || '';
+          inp.addEventListener('input', () => { row[c.id] = inp.value; save(); });
+          td.appendChild(inp);
+        }
+        tr.appendChild(td);
+      });
+      const tdAct = document.createElement('td');
+      const del = document.createElement('button');
+      del.className = 'btn-mini del'; del.textContent = '✖';
+      del.onclick = () => { state[f.id].splice(i,1); save(); renderRowsBody(); };
+      tdAct.appendChild(del);
+      tr.appendChild(tdAct);
+      tbody.appendChild(tr);
+    });
+  }
+
+  renderRowsBody();
+  container.appendChild(table);
+
+  const addBtn = document.createElement('button');
+  addBtn.className = 'btn-mini'; addBtn.textContent = '+ إضافة صف';
+  addBtn.onclick = () => {
+    const row = {};
+    f.columns.forEach(c => row[c.id] = '');
+    state[f.id].push(row); save(); renderRowsBody();
+  };
+  container.appendChild(addBtn);
+  return container;
+}
+
+/* ================= SAVE / LOAD ================= */
+let saveTimer;
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateProgress();
+  }, 300);
+}
+
+function updateProgress() {
+  let total = 0, filled = 0;
+  SCHEMA.forEach(sec => sec.fields.forEach(f => {
+    total++;
+    const v = state[f.id];
+    if (v && (Array.isArray(v) ? v.length > 0 : String(v).trim() !== '')) filled++;
+  }));
+  const pct = total ? Math.round((filled/total)*100) : 0;
+  document.getElementById('progress-text').textContent = `${filled} / ${total} حقل معبأ (${pct}%)`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+/* ================= EXPORT ================= */
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
+  downloadBlob(blob, `kodia-brief-${(state.project_name||'project').replace(/[^\w\u0600-\u06FF-]/g,'_')}.json`);
+}
+
+function exportMD() {
+  let md = `# Kodia Web Design — Project Brief\n\n`;
+  md += `> تاريخ التصدير: ${new Date().toLocaleString('ar-EG')}\n\n`;
+  SCHEMA.forEach(sec => {
+    const lines = [];
+    sec.fields.forEach(f => {
+      const v = state[f.id];
+      if (v && (Array.isArray(v) ? v.length > 0 : String(v).trim() !== '')) {
+        if (f.type === 'rows') {
+          lines.push(`\n**${f.label}**\n`);
+          const cols = f.columns.map(c => c.label);
+          lines.push('| ' + cols.join(' | ') + ' |');
+          lines.push('|' + cols.map(()=>'---').join('|') + '|');
+          v.forEach(row => {
+            lines.push('| ' + f.columns.map(c => (row[c.id]||'').toString().replace(/\|/g,'\\|')).join(' | ') + ' |');
+          });
+          lines.push('');
+        } else {
+          lines.push(`\n**${f.label}:** ${String(v).replace(/\n/g,'\n  ')}\n`);
+        }
+      }
+    });
+    if (lines.length) {
+      md += `\n## ${sec.title}\n` + lines.join('\n') + '\n';
+    }
+  });
+  const blob = new Blob([md], { type:'text/markdown;charset=utf-8' });
+  downloadBlob(blob, `kodia-brief-${(state.project_name||'project').replace(/[^\w\u0600-\u06FF-]/g,'_')}.md`);
+}
+
+/* ================= SEND TO WHATSAPP ================= */
+function sendToWhatsApp() {
+  // 1. تحميل الملف تلقائياً
+  exportMD();
+  
+  // 2. تجهيز رسالة الواتساب
+  const name = state.project_name || "عميل جديد";
+  const text = `مرحباً Kodia Web Design،\nأنا ${name}.\nلقد قمت بتعبئة نموذج المشروع.\n\n(تم تحميل ملف الـ Markdown على جهازي، وسأقوم بإرفاقه في المحادثة الآن).`;
+  
+  // 3. فتح الواتساب بعد تأخير بسيط عشان المتصفح يلحق يحمل الملف
+  setTimeout(() => {
+    const phone = "201207005495"; // رقمك بصيغة دولية بدون +
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  }, 800);
+}
+
+function downloadBlob(blob, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ================= IMPORT / CLEAR ================= */
+function importJSON(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      state = JSON.parse(ev.target.result);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      render();
+      alert('تم استيراد البيانات بنجاح ✓');
+    } catch(err) { alert('ملف JSON غير صالح: ' + err.message); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+function clearAll() {
+  if (!confirm('هل أنت متأكد من مسح كل البيانات؟ لا يمكن التراجع.')) return;
+  state = {};
+  localStorage.removeItem(STORAGE_KEY);
+  render();
+}
+
+/* ================= EXAMPLE ================= */
+function loadExample() {
+  if (!confirm('سيتم استبدال البيانات الحالية بمثال. متابعة؟')) return;
+  state = {
+    project_name: "مثال: متجر أنيق للعبايات",
+    project_type: "متجر إلكتروني",
+    description: "متجر إلكتروني لبيع العبايات النسائية بتصميم عصري.",
+    problem: "صعوبة إيجاد عبايات بأسعار معقولة عبر الإنترنت في السوق المحلي.",
+    audience: "نساء 20–45 سنة في مصر والسعودية.",
+    goal: "زيادة المبيعات",
+    markets: "مصر والسعودية",
+    version: "نسخة أولية MVP",
+    top5: "1) عرض المنتجات\n2) سلة الشراء\n3) الدفع عند الاستلام\n4) لوحة إدارة الطلبات\n5) صفحة تواصل",
+    success_criteria: "استقبال 10 طلبات في أول شهر.",
+    framework: "Next.js",
+    language: "TypeScript",
+    db: "مطلوبة",
+    auth: "مطلوب",
+    admin_panel: "مطلوبة",
+    payment: "غير مطلوب",
+    hosting: "Vercel مجاني",
+    code_host: "GitHub",
+    ui_language: "عربي",
+    direction: "RTL",
+  };
+  save(); render();
+  alert('تم تحميل نموذج تجريبي — تقدر تعدل عليه أو تمسحه.');
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  });
+});
+</script>
+
+</body>
+</html>
